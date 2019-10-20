@@ -1,8 +1,3 @@
-/**
- *
- * @param {*} words
- * Creates a plotly trace for the word given.
- */
 function createTrace(word, years, data) {
     trace = {
         x: [],
@@ -21,4 +16,37 @@ function createTrace(word, years, data) {
 
 function unique(value, index, self) {
     return self.indexOf(value) === index
+}
+
+function uniqueNames(arr){
+    let results = []
+    let names = []
+    arr.forEach(o => {
+        if(!names.includes(o.name)){
+            results.push(o);
+            names.push(o.name);
+        }
+    })
+    return results;
+} 
+
+function updateGraph(words) {
+
+words.split(',').map(d => d.trim())
+
+d3.json(`get_words/${words}`).then(data => {
+
+    let uniqueWords = data.map(d => d.word).filter(unique)
+    let years = data.map(d => d.year)
+    let newTraces = uniqueWords.map(word => createTrace(word, years, data));
+
+    traces = traces.concat(newTraces);
+    
+    traces = uniqueNames(traces);
+
+    Plotly.newPlot('graph', traces,
+        {
+            margin: { t: 0 }
+        });
+});
 }
