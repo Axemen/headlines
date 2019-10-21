@@ -51,7 +51,7 @@ function addToGraph(words) {
     });
 }
 
-function removeFromGraph(word){
+function removeFromGraph(word) {
     let graph = d3.select('#graph')._groups[0][0].data;
     let names = graph.map(o => o.name);
 
