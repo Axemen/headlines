@@ -6,7 +6,7 @@ app = Flask(__name__)
 # Localhost URI
 # app.config['MONGO_URI'] = 'mongodb://localhost:27017/reuters_counts'
 # MLAB URI
-app.config['MONGO_URI'] = 'mongodb://user:password1@ds137498.mlab.com:37498/heroku_nzvq5kp7'
+app.config['MONGO_URI'] = 'mongodb://user:password1@ds137508.mlab.com:37508/heroku_40txrp1b'
 
 mongo = PyMongo(app)
 
