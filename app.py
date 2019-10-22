@@ -19,7 +19,7 @@ def get_word(words):
     # Grabbing words from input box on home route
     # words = request.form.getlist('words', type=str)
 
-    words = map(lambda x: x.strip(), words.split(','))
+    words = map(lambda x: x.strip().lower(), words.split(','))
 
     results = []
     years = range(2007, 2018)
