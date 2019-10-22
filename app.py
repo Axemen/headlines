@@ -3,12 +3,16 @@ from flask_pymongo import PyMongo
 import sys
 
 app = Flask(__name__)
-app.config['MONGO_URI'] = 'mongodb://localhost:27017/reuters_counts'
+# Localhost URI
+# app.config['MONGO_URI'] = 'mongodb://localhost:27017/reuters_counts'
+# MLAB URI
+app.config['MONGO_URI'] = 'mongodb://user:password1@ds137498.mlab.com:37498/heroku_nzvq5kp7'
+
 mongo = PyMongo(app)
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    return render_template('post.html')
 
 @app.route('/get_words/<words>')
 def get_word(words):
