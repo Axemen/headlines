@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- <button type="submit" id='start'>Start</button> -->
+    <!-- <button type="submit" id = 'reset'>Reset</button> -->
+    <div class="input-group" id="word-input">
+        <div class="input-group-prepend">
+            <span class="input-group-text">
+                Insert the word you wish to see here!
+            </span>
+        </div>
+        <input type="text" name="words" id="words-input" style="width: 100%;" class="mx-auto" />
+    </div>
+    <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-words">
+        Add word
+    </button>
+    <button class="btn btn-outline-secondary text-danger" type="submit" id="remove-words">
+        Remove word
+    </button>
+    <script src="../static/js/PorterStemmer1980.min.js"></script>
+    <script src="../static/js/functions.js"></script>
+    <script src="../static/js/d3functions.js"></script>
+    <script src="../static/js/d3.js"></script>
+</body>
+
+</html>

@@ -38,7 +38,7 @@ function initGraph(word) {
     d3.json(`/get_words/${word}`).then(data => {
         let trace = createTrace(word, data);
 
-        Plotly.plot('graph', [trace],
+        Plotly.newPlot('graph', [trace],
             {
                 margin: { t: 0 },
                 showlegend: true,
@@ -48,4 +48,43 @@ function initGraph(word) {
                 }
             });
     });
+}
+
+function initBarGraph(word) {
+    d3.json(`get_words/${word}`).then(data => {
+
+        let trace = createTrace(word, data);
+        trace.type = 'bar'
+
+        Plotly.newPlot('bar-graph', [trace]), {
+            margin: { t: 0 },
+        }
+    })
+}
+
+function updateBarGraph(word) {
+    d3.json(`/get_words/${word}`).then(data => {
+        var trace = createTrace(word, data);
+        trace.type = 'bar'
+
+        console.log(trace.y);
+
+        Plotly.animate('bar-graph', {
+            data: [trace],
+            traces: [0],
+            layout: {
+                yaxis: {range: [0, Math.max.apply(null, trace.y) + (Math.max.apply(null, trace.y) * 0.1)]}
+            }
+        }, {
+            transition: {
+                duration: 500,
+                easing: 'cubin-in-out'
+            },
+            frame: {
+                duration: 500
+            }
+        })
+
+
+    })
 }

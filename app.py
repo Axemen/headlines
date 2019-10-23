@@ -36,8 +36,10 @@ def get_word(words):
             results.append(temp_dict)
     # Returning jsonified results. 
     return jsonify(results)
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
     
-
-
 if __name__ == '__main__':
     app.run(debug=True)
