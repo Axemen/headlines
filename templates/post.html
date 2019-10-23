@@ -20,42 +20,55 @@
 </head>
 
 <body>
-  <article>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 col-md-10 mx-auto">
-          <div id="graph"></div>
-          <div class="input-group" id="word-input">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                Insert the word you wish to see here!
-              </span>
-            </div>
-            <input type="text" name="words" id="words-input" style="width: 100%;" class="mx-auto" />
-          </div>
-          <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-words">
-            Add word
-          </button>
-          <button class="btn btn-outline-secondary text-danger" type="submit" id="remove-words">
-            Remove word
-          </button>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
 
-          <div id="bar-graph" sytle="width: 500px; height: 400px"></div>
-          <div class="input-group" id="word-input-bar">
-            <div class="input-group-prepend">
-              <span class="input-group-text">
-                Insert the word you wish to see here!
-              </span>
-            </div>
-            <input type="text" name="words" id="words-input-bar" style="width: 100%;" class="mx-auto" />
+        <div class="input-group" id="word-input">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              Insert the word you wish to see here!
+            </span>
           </div>
-          <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-word-bar">
-            Change word
-          </button>
+          <input type="text" name="words" id="words-input" style="width: 100%;" class="mx-auto" />
         </div>
+        <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-words">
+          Add word
+        </button>
+        <button class="btn btn-outline-secondary text-danger" type="submit" id="remove-words">
+          Remove word
+        </button>
+      </div>
+      <div class="col-lg-10 col-md-10 mx-auto">
+          <div id="graph"></div>
       </div>
     </div>
-  </article>
+    <div class='row'>
+      <div class='col-lg-10 col-md-10 mx-auto'>
+        <h3 id='current-word-bar' class='text-center'>us</h3>
+        <div id="bar-graph"></div>
+        <div class="input-group" id="word-input-bar">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              Insert the word you wish to see here!
+            </span>
+          </div>
+          <input type="text" name="words" id="words-input-bar" style="width: 100%;" class="mx-auto" />
+        </div>
+        <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-word-bar">
+          Change word
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-10 col-md-10 mx-auto">
+
+      </div>
+    </div>
+
+
+  </div>
+
 
   <hr />
   <!-- Bootstrap core JavaScript -->
@@ -73,6 +86,7 @@
   <script src="../static/js/clean-blog.min.js"></script>
   <script src="../static/js/PorterStemmer1980.min.js"></script>
   <script src="../static/js/functions.js"></script>
+  <script src="../static/js/d3functions.js"></script>
   <script src="../static/js/logic.js"></script>
 </body>
 
