@@ -1,5 +1,5 @@
-let svgHeight = 500;
-let svgWidth = 800;
+let svgLineHeight = 500;
+let svgLineWidth = 800;
 
 let chartMargin = {
     top: 30,
@@ -8,22 +8,22 @@ let chartMargin = {
     left: 60
 };
 
-let chartWidth = svgWidth - chartMargin.left - chartMargin.right;
-let chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
+let chartWidth = svgLineWidth - chartMargin.left - chartMargin.right;
+let chartHeight = svgLineHeight - chartMargin.top - chartMargin.bottom;
 
-let svg = d3.select('#test-graph').append('svg')
-    .attr('height', svgHeight)
-    .attr('width', svgWidth)
+let lineSvg = d3.select('#lineGraph').append('svg')
+    .attr('height', svgLineHeight)
+    .attr('width', svgLineWidth)
 
-let chartGroup = svg.append('g')
+let lineChartGroup = lineSvg.append('g')
     .attr('transform', `translate(${chartMargin.left}, ${chartMargin.top})`)
-    .attr('id', 'chartGroup')
+    .attr('id', 'LineChartGroup')
     .attr('height', chartHeight)
     .attr('width', chartWidth);
 
 var words = ['trump'];
 
-initLineGraph(words, chartGroup);
+initLineGraph(words, lineChartGroup);
 
 // ==================================================================================
 // Event Handlers
@@ -39,7 +39,7 @@ d3.select('#submit-words').on('click', d => {
     let newWord = d3.select('#words-input').property('value')
     words.push(newWord);
     words = words.filter((value, index, self) => self.indexOf(value) === index)
-    addLine(words, d3.select('#chartGroup'));
+    addLine(words, d3.select('#LineChartGroup'));
 });
 
 
