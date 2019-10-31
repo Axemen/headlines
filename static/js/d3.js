@@ -15,7 +15,7 @@ let lineSvg = d3.select('#lineGraph').append('svg')
     .attr('height', svgLineHeight)
     .attr('width', svgLineWidth)
 
-let lineChartGroup = lineSvg.append('g')
+let barChartGroup = lineSvg.append('g')
     .attr('transform', `translate(${chartMargin.left}, ${chartMargin.top})`)
     .attr('id', 'LineChartGroup')
     .attr('height', chartHeight)
@@ -23,7 +23,10 @@ let lineChartGroup = lineSvg.append('g')
 
 var words = ['trump'];
 
-initLineGraph(words, lineChartGroup);
+d3.json(`/get_words/trump/2007`).then(data => {
+    
+
+})    
 
 // ==================================================================================
 // Event Handlers

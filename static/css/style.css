@@ -12,3 +12,9 @@ div.tooltip {
   pointer-events: none;
   border-radius: 10px;
 }
+
+.line{
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 3px;
+}

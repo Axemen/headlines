@@ -1,49 +1,20 @@
 var words = ['us']
 
-let svgBarHeight = 450;
-let svgBarWidth = 920;
+let multiLine = new MultiLine('lineGraph');
 
-let svgLineHeight = 500;
-let svgLineWidth = 800;
+let barGraph = new BarChart('bar-graph');
 
-let chartMargin = {
-    top: 30,
-    right: 30,
-    bottom: 80,
-    left: 60
-};
-
-let chartWidth = svgLineWidth - chartMargin.left - chartMargin.right;
-let chartHeight = svgLineHeight - chartMargin.top - chartMargin.bottom;
-
-let lineSvg = d3.select('#lineGraph').append('svg')
-    .attr('height', svgLineHeight)
-    .attr('width', svgLineWidth)
-
-let barSvg = d3.select('#bar-graph').append('svg')
-    .attr('height', svgBarHeight)
-    .attr('width', svgBarWidth)
-
-let lineChartGroup = lineSvg.append('g')
-    .attr('transform', `translate(${chartMargin.left}, ${chartMargin.top})`)
-    .attr('id', 'LineChartGroup')
-    .attr('height', chartHeight)
-    .attr('width', chartWidth);
-
-let barChartGroup = barSvg.append('g')
-    .attr('id', 'barChartGroup')
-    .attr('transform', `translate(${chartMargin.left}, ${chartMargin.top})`);
-
-initLineGraph(words, lineChartGroup);
-
-initBarGraph('us');
+fetchWordCountByYear('us').then(response => {
+    multiLine.init([...response]);
+    barGraph.init([...response]);
+})
 
 d3.select('#submit-words').on('click', () => {
-    console.log('Submitting words...');
+    // console.log('Submitting words...');
     let newWord = d3.select('#words-input').property('value').toLowerCase()
     words.push(newWord);
     words = words.filter((value, index, self) => self.indexOf(value) === index)
-    console.log(words)
+    // console.log(words)
     addLine(words, d3.select('#LineChartGroup'));
 });
 
@@ -59,4 +30,14 @@ d3.select('#submit-word-bar').on('click', () => {
     d3.select('#current-word-bar').html(`${word}`)
     updateBars(word, barChartGroup);
 })
+
+window.addEventListener('resize', () => {
+    multiLine.render();
+    barGraph.render();
+});
+async function fetchWordCountByYear(word) {
+    const response = await fetch(`/get_words/${word}`);
+    return await response.json();
+}
+
 

@@ -24,14 +24,40 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 col-md-10 mx-auto">
-
-        <div class="input-group" id="word-input">
-          <div class="input-group-prepend">
-            <span class="input-group-text">
-              Insert the word you wish to see here!
-            </span>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="input-group" id="word-input">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  Insert the word you wish to see here!
+                </span>
+              </div>
+              <input type="text" name="words" id="words-input" style="width: 100%;" class="mx-auto" />
+            </div>
           </div>
-          <input type="text" name="words" id="words-input" style="width: 100%;" class="mx-auto" />
+          <div class="col-md-6">
+            <div class="dropdown mx-auto">
+              <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Overview</a>
+                <a class="dropdown-item" href="#">2007</a>
+                <a class="dropdown-item" href="#">2008</a>
+                <a href="" class="dropdown-item">2009</a>
+                <a href="" class="dropdown-item">2010</a>
+                <a href="" class="dropdown-item">2011</a>
+                <a href="" class="dropdown-item">2012</a>
+                <a href="" class="dropdown-item">2013</a>
+                <a href="" class="dropdown-item">2014</a>
+                <a href="" class="dropdown-item">2015</a>
+                <a href="" class="dropdown-item">2016</a>
+                <a href="" class="dropdown-item">2017</a>
+                <button class="">Button</button>
+              </div>
+            </div>
+          </div>
         </div>
         <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-words">
           Add word
@@ -41,7 +67,7 @@
         </button>
       </div>
       <div class="col-lg-10 col-md-10 mx-auto">
-          <div id="lineGraph"></div>
+        <div id="lineGraph"></div>
       </div>
     </div>
     <div class='row'>
@@ -62,9 +88,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-10 col-md-10 mx-auto">
-
-      </div>
+      <div class="col-lg-10 col-md-10 mx-auto"></div>
     </div>
 
 
@@ -86,8 +110,8 @@
   <!-- Custom scripts for this template -->
   <script src="../static/js/clean-blog.min.js"></script>
   <script src="../static/js/PorterStemmer1980.min.js"></script>
-  <script src="../static/js/functions.js"></script>
-  <script src="../static/js/d3functions.js"></script>
+  <script src="../static/js/multiline.js"></script>
+  <script src="../static/js/bar.js"></script>
   <script src="../static/js/logic.js"></script>
 </body>
 

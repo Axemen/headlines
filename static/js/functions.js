@@ -50,7 +50,7 @@ function initBarGraph(word) {
 
         // Creating xScale for generating xAxis
         let xBandScale = d3.scaleBand()
-            .domain(data.map(d => d.date))
+            .domain(data.map(d => d._id.year))
             .range([0, chartWidth])
             .padding(0.1);
 
@@ -89,7 +89,7 @@ function initBarGraph(word) {
             .append('rect')
             .attr('class', 'bar')
             .style('fill', 'steelblue')
-            .attr('x', d => xBandScale(d.date))
+            .attr('x', d => xBandScale(d._id.year))
             .attr('y', d => yLinearScale(d.count))
             .attr('width', xBandScale.bandwidth())
             .attr('height', d => chartHeight - yLinearScale(d.count))
@@ -115,12 +115,14 @@ function initBarGraph(word) {
 
 function initLineGraph(words, chartGroup) {
     d3.json(`/get_words/${words.join(',')}`).then(data => {
+        // console.log(data);
+        data = data.sort((a, b) => a._id.year - b._id.year)
 
         let parseTime = d3.timeParse('%Y');
-        data.forEach(d => d.date = parseTime(d.date));
+        data.forEach(d => d._id.year = parseTime(d._id.year));
 
         var xScale = d3.scaleTime()
-            .domain(d3.extent(data, d => d.date))
+            .domain(d3.extent(data, d => d._id.year))
             .range([0, chartWidth]);
 
         let yScale = d3.scaleLinear()
@@ -130,12 +132,13 @@ function initLineGraph(words, chartGroup) {
         let color = d3.scaleOrdinal(d3.schemeCategory10);
 
         let line = d3.line()
-            .x(d => xScale(d.date))
+            .x(d => xScale(d._id.year))
             .y(d => yScale(d.count));
 
         words.forEach(word => {
+            
             chartGroup.append('path')
-                .datum(data.filter(d => d['_id'] === word))
+                .datum(data.filter(d => d._id.word === word))
                 .attr('class', `${word} line`)
                 .attr('data-legend', `${word}`)
                 .style('fill', 'none')
@@ -160,14 +163,15 @@ function initLineGraph(words, chartGroup) {
             .text('Count of word')
             .style('font-size', 12)
             .call(yAxis);
-    });
+    }).catch(error => console.log(error))
 }
 
 function adjustYAxis(words) {
-    console.log('adjusting...')
     pullWords = words.map(word => stemmer(word))
+
     d3.json(`/get_words/${pullWords}`).then(data => {
-        console.log(data)
+        data = data.sort((a, b) => a._id.year - b._id.year)
+
         let yScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.count)])
             .range([chartHeight, 0]);
@@ -177,17 +181,17 @@ function adjustYAxis(words) {
             .call(d3.axisLeft(yScale).ticks(10));
 
         let xScale = d3.scaleTime()
-            .domain(d3.extent(data, d => d.date))
+            .domain(d3.extent(data, d => d._id.year))
             .range([0, chartWidth]);
 
         let line = d3.line()
-            .x(d => xScale(d.date))
+            .x(d => xScale(d._id.year))
             .y(d => yScale(d.count));
 
         words.forEach(word => {
             d3.select(`.${word}`)
                 .transition()
-                .attr('d', line(data.filter(d => d['_id'] === word)))
+                .attr('d', line(data.filter(d => d._id.word === word)))
         })
     }).catch(error => console.log(error))
 
@@ -198,24 +202,25 @@ function addLine(words, chartGroup) {
     pullWords = words.map(word => stemmer(word))
 
     d3.json(`/get_words/${words}`).then(data => {
+        data = data.sort((a, b) => a._id.year - b._id.year)
 
         let parseTime = d3.timeParse('%Y')
-        data.forEach(d => d.date = parseTime(d.date))
+        data.forEach(d => d._id.year = parseTime(d._id.year))
 
         let yScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.count)])
             .range([chartHeight, 0]);
 
-        let xScale = d3.scaleTime()
-            .domain(d3.extent(data, d => d.date))
-            .range([0, chartWidth]);
+        // let xScale = d3.scaleTime()
+        //     .domain(d3.extent(data, d => d._id.year))
+        //     .range([0, chartWidth]);
 
         d3.select('.yAxis')
             .transition()
             .call(d3.axisLeft(yScale).ticks(10));
 
         let line = d3.line()
-            .x(d => xScale(d.date))
+            .x(d => xScale(d._id.year))
             .y(d => yScale(d.count));
 
         words.forEach(word => {
@@ -224,7 +229,7 @@ function addLine(words, chartGroup) {
             if (!selection.node()) {
                 // if the word does not yet have a line draw that line 
                 chartGroup.append('path')
-                    .datum(data.filter(d => d['_id'] === word))
+                    .datum(data.filter(d => d._id.word === word))
                     .attr('class', `${word} line`)
                     .attr('data-legend', `${word}`)
                     .style('fill', 'none')
@@ -234,7 +239,7 @@ function addLine(words, chartGroup) {
                 // if the word has a line transition the line to the new y-scale
                 selection
                     .transition()
-                    .attr('d', line(data.filter(d => d['_id'] === word)))
+                    .attr('d', line(data.filter(d => d._id.word === word)))
             }
         })
 
@@ -242,4 +247,34 @@ function addLine(words, chartGroup) {
 
         d3.selectAll('.line').style('stroke', (d, i) => color(i))
     })
+}
+
+function initSvgs() {
+    let svgBarHeight = 450;
+    let svgBarWidth = 920;
+    let svgLineHeight = 500;
+    let svgLineWidth = 800;
+    let chartMargin = {
+        top: 30,
+        right: 30,
+        bottom: 80,
+        left: 60
+    };
+    let chartWidth = svgLineWidth - chartMargin.left - chartMargin.right;
+    let chartHeight = svgLineHeight - chartMargin.top - chartMargin.bottom;
+    let lineSvg = d3.select('#lineGraph').append('svg')
+        .attr('height', svgLineHeight)
+        .attr('width', svgLineWidth);
+    let barSvg = d3.select('#bar-graph').append('svg')
+        .attr('height', svgBarHeight)
+        .attr('width', svgBarWidth);
+    let lineChartGroup = lineSvg.append('g')
+        .attr('transform', `translate(${chartMargin.left}, ${chartMargin.top})`)
+        .attr('id', 'LineChartGroup')
+        .attr('height', chartHeight)
+        .attr('width', chartWidth);
+    let barChartGroup = barSvg.append('g')
+        .attr('id', 'barChartGroup')
+        .attr('transform', `translate(${chartMargin.left}, ${chartMargin.top})`);
+    return { lineChartGroup, barChartGroup , chartWidth, chartHeight };
 }

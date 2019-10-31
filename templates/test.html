@@ -6,35 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="../static/css/style.css">
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" /> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 </head>
 
 <body>
-
-    <div class="input-group" id="word-input">
-        <div class="input-group-prepend">
-            <span class="input-group-text">
-                Insert the word you wish to see here!
-            </span>
+    <button id='button'>Click Me!</button>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6 col-sm-12">
+            <div id="test-graph"></div>
         </div>
-        <input type="text" name="words" id="words-input" style="width: 100%;" class="mx-auto" />
+        <div class="col-md-3"></div>
     </div>
-    <button class="btn btn-outline-secondary text-primary" type="submit" id="submit-words">
-        Add word
-    </button>
-    <button class="btn btn-outline-secondary text-danger" type="submit" id="remove-words">
-        Remove word
-    </button>
 
+<!--     
+    <hr>
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div id="bar-graph"></div>
+        </div>
+        <div class="col-md-3"></div>
+    </div> -->
 
-    <div id="test-graph"></div>
-
-    <script src="../static/js/PorterStemmer1980.min.js"></script>
-    <!-- <script src="../static/js/functions.js"></script> -->
-    <script src="../static/js/d3functions.js"></script>
-    <script src="../static/js/d3.js"></script>
+    <script src="../static/js/testFunctions.js"></script>
+    <script src="../static/js/test.js"></script>
 </body>
 
 </html>
