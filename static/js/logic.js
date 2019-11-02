@@ -10,11 +10,9 @@ fetchWordCountByYear('us').then(response => {
 })
 
 d3.select('#submit-words').on('click', () => {
-    // console.log('Submitting words...');
     let newWord = d3.select('#words-input').property('value').toLowerCase()
     words.push(newWord);
     words = words.filter((value, index, self) => self.indexOf(value) === index)
-    // console.log(words)
     addLine(words, d3.select('#LineChartGroup'));
 });
 
